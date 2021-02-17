@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block style %}<link rel="stylesheet" type="text/css" href="{% static 'style/login.css' %}">{% endblock %}
+{% block title %}Авторизация{% endblock %}
+{% block content %}
+<form class="decor" action="{% url 'login' %}" method="post">
+    <div class="form-left-decoration"></div>
+    <div class="form-right-decoration"></div>
+    <div class="circle"></div>
+    <div class="form-inner">
+    <h3 style="text-align: center;">Войдите в аккаунт</h3>
+    {% if form.errors %}
+        <h3 style="font-size: 12px; color: #fc2b35;">Проверьте корректность введенных данных.</h3>
+    {% endif %}
+    <h3 style="font-size: 16px;">Логин</h3>
+    {{ form.username }}
+    <h3 style="font-size: 16px;">Пароль</h3>
+    {{ form.password }}
+    <a class="password-link" href=""><h3 class="password-link" style="font-size: 14px;">Забыли пароль?</h3></a>
+    {% csrf_token %}
+    <input class="inter" type="submit" value="войти">
+    <a class="password-link" href="{% url 'register' %}"><h3 class="password-link" style="font-size: 14px; text-align: center; ">Регистрация</h3></a>
+    </div>
+</form>
+<footer style="position: absolute; bottom: 10px; right: 10px; font-family: 'Roboto', sans-serif;">2020-2021 FuryShop</footer>
+{% endblock %}

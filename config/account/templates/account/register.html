@@ -1,0 +1,30 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block title %}Create an account{% endblock %}
+{% block style %}<link rel="stylesheet" type="text/css" href="{% static 'style/login.css' %}">{% endblock %}
+
+{% block content %}
+<form class="decor" action="." method="post">
+    <div class="form-left-decoration"></div>
+    <div class="form-right-decoration"></div>
+    <div class="circle"></div>
+    <div class="form-inner">
+    <h3 style="text-align: center;">Создание аккаунта</h3>
+    <h3 style="font-size: 16px;">Логин</h3>
+    {{ user_form.username }}
+    <h3 style="font-size: 12px; color: #ff3d3d;">{{ user_form.username.errors }}</h3>
+    <h3 style="font-size: 16px;">Почта</h3>
+    {{ user_form.email }}
+    <h3 style="font-size: 16px;">Ваше имя</h3>
+    {{ user_form.first_name }}
+    <h3 style="font-size: 16px;">Пароль</h3>
+    {{ user_form.password }}
+    <h3 style="font-size: 12px; color: #ff3d3d;">{{ user_form.password2.errors }}</h3>
+    <h3 style="font-size: 16px;">Повторите пароль</h3>
+    {{ user_form.password2 }}
+    {% csrf_token %}
+    <input class="inter" type="submit" value="создать аккаунт">
+    <a class="password-link" href="{% url 'login' %}"><h3 class="password-link" style="font-size: 14px; text-align: center; ">Авторизация</h3></a>
+    </div>
+</form>
+{% endblock %}

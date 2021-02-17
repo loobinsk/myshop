@@ -1,0 +1,23 @@
+{% extends 'shop/base.html' %}
+
+{% block content %}
+<div style="margin-left: 40px;">
+	{% if request.user.is_authenticated %}
+		<p>Привет, {{ request.user.first_name }}! <a style="color: red; text-decoration: underline;" href="{% url 'logout' %}">Выйти</a></p>
+	{% else %}
+		<p>Привет! Войди в свой аккаунт, или создай новый!</p>
+	{% endif %}
+	<h1>Ваши заказы:</h1>
+	{% for order in orders %}
+		<hr>
+		<p>Заказ номер: {{ order.id }}</p>
+		<ul>
+		{% for i in order.items.all %}
+			<li>{{ i.product.name }} {{ i.quantity }}шт - {{ i.product.price }} руб.</li>
+		{% endfor %}<br>
+		</ul>
+		{{ order.get_total_cost }}<br>
+		Статус заказа: {{ order.get_status }}
+	{% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'shop/base.html' %}
+
+{% block content %}
+{% if request.user.is_authenticated %}
+	{% if request.user.first_name %}
+		<p>Привет, {{ request.user.first_name }}!</p>
+	{% else %}
+		<p>Привет, {{ request.user.username }}</p>
+	{% endif %}
+	<a href="{% url 'logout' %}">Выйти</a>
+{% else %}
+	<p>Привет! Войди в свой аккаунт, или создай новый!</p>
+{% endif %}
+<h1>Ваш личный кабинет</h1>
+{% endblock %}

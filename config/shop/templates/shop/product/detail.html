@@ -1,0 +1,59 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% load humanize %}
+{% block title %}
+    {% if category %}{{ category.title }}{% else %}FuryShop / {{ product.name }}{% endif %}
+{% endblock %}
+{% block content %}
+	<div style="margin-left: 20px;">
+		<br>
+		<h2><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h2>
+	    <div class="product-detail">
+	        <img style="display: inline-block;  float: left; margin-right: 50px;" class="product-img-detail" src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/no_image.png' %}{% endif %}">
+	        <h1>{{ product.name }}</h1>
+			<p class="price">{{ product.price | intcomma }} руб.</p>
+			<form action="{% url 'cart:cart_add' product.id %}" method="post">
+				<p style="display: inline;">Введите количество:</p>
+			    <input style="outline:none; border: 0.1px solid #a8a8a8; width: 40px;" required="" type="number" min="1" name="quantity" value="1"> шт.
+			    {% csrf_token %}
+			    <br>
+			    <input  style="display: inline; border: none; outline: none; margin-right: 10px;" class="add-cart-button" type="submit" value="Добавить в корзину">
+			</form>
+			<br>
+			<br>
+	    </div><br><br><br><br>
+	    <br>{{ product.description | linebreaks }}<br>
+	    <div class="comments-box">
+	    	{% if comments %}
+	    		<h3>комментарии</h3>
+		    		<form action="." method="post">
+		    			Текс комментария:<br>
+			    		<input  style="outline:none; border: none; height: 40px; border: 0.1px solid #a8a8a8;" required type="text" name="comment_text" size="30">
+			    		{% csrf_token %}
+			    		<p><input class="add-cart-button" style="border: none; outline: none;" type="submit" value="Добавить комментарий"></p>
+			    	</form>
+	    		{% for comment in comments %}
+	    			<div class="comment">
+	    				<hr>
+		    			<p>Автор: 
+		    				<a style="color: blue; text-decoration: underline;" href="">{% if comment.user.first_name %}
+		    					{{ comment.user.first_name }}</p>
+		    				{% else %}
+		    					{{ comment.user.username }}
+		    				{% endif %}</a>
+		    			<p>{{ comment.text }}</p>
+		    			<p>{{ comment.created }}</p>
+	    			</div>
+	    		{% endfor %}
+	    	{% else %}
+	    		<h1>Комментариев нет, оставьте первый!</h1>
+	    		<form action="." method="post">
+	    			Текс комментария:<br>
+		    		<input style="outline:none; border: none; height: 40px; border: 1px solid black;" required="" type="text" name="comment_text" size="60">
+		    		{% csrf_token %}
+		    		<p><input class="add-cart-button" style="border: none; outline: none;" type="submit" value="Добавить комментарий"></p>
+		    	</form>
+	    	{% endif %}
+	    </div>
+    </div>
+{% endblock %}

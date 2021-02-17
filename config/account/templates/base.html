@@ -1,0 +1,15 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block title %} FuryShop {% endblock %}</title>
+	{% block style %}<link rel="stylesheet" type="text/css" href="{% static 'style/base.css' %}">{% endblock %}
+	<link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
+</head>
+<body>
+	<div class="content">
+		{% block content %}
+		{% endblock %}
+	</div>
+</body>
+</html>

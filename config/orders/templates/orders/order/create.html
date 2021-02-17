@@ -1,0 +1,29 @@
+{% extends "shop/base.html" %}
+{% load humanize %}
+{% block title %}Оформление заказа{% endblock %}
+
+{% block content %}
+    <div style="margin-left: 20px;">
+        <h1>Ваш заказ:</h1>
+        <div class="order-info">
+            <ul>
+                {% for item in cart %}
+                    <li>
+                        <p>{{ item.product.name }}, {{ item.quantity }}шт - <span> {{ item.total_price | intcomma }}руб.</span></p>
+                    </li>
+                {% endfor %}
+            </ul>
+            <p>Итого: {{ cart.get_total_price | intcomma }} руб.</p>
+        </div>
+        <form action="." method="post" class="order-form">
+            <p><label for="id_first_name">Ваше имя: </label> <input value='{{ request.user.first_name }}' type="text" name="first_name" maxlength="50" required id="id_first_name"></p>
+            <p><label for="id_last_name">Ваша фамилия: </label> <input type="text" name="last_name" maxlength="50" required id="last_name"></p>
+            <p><label for="id_email">Почта: </label> <input type="email" name="email" maxlength="50" required id="id_email"></p>
+            <p><label for="id_adress">Адрес: </label> <input type="text" name="address" maxlength="50" required id="id_adress"></p>
+            <p><label for="id_postal_code">Почтовый индекс: </label><input type="text" name="postal_code" maxlength="20" required id="id_postal_code"></p>
+            <p><label for="id_city">Город: </label> <input type="text" name="city" maxlength="50" required id="id_city"></p>
+            <p><input type="submit" class="black-button" value="Оформить заказ"></p>
+            {% csrf_token %}
+        </form>
+    </div>
+{% endblock %}

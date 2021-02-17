@@ -1,0 +1,9 @@
+{% extends "shop/base.html" %}
+
+{% block title %}Thank you{% endblock %}
+
+{% block content %}
+    <h1 style="padding: 10; background-color: #2fe064; color: white; text-align: center;">Успешно!</h1>
+    <p style="text-align: center;">Ваш заказ успешно оформлен и принят в обработку. Ваш заказ находится под номером 
+        <strong>{{ order.id }}</strong>. Ожидайте звонка оператора!</p>
+{% endblock %}

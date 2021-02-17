@@ -1,0 +1,53 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block title %}
+FuryShop - магазин качественных инплантов
+{% endblock %}
+{% block content %}
+	<div class="logo">
+		<div style="margin-left: 40px;">
+			<h1 style="font-size: 40px; text-shadow: 1px 1px 1px black, 0 0 3em white;">Furyshop</h1>
+			<h2 style="opacity: 100;">Простые компъютеры, для сложных задач!</h2>
+		</div>
+	</div>
+<div class="black-back"></div>
+<div>
+	<h1 style="margin-top: 40px; text-align: center; text-transform: uppercase;">Новинки!</h1>
+	<div style="text-align: center;">
+		{% for i in latest_products %}
+			<div class="product-cart">
+				<img class="hmp-image" src="
+					{% if i.image %}
+                        {{ i.image.url }}
+                    {% else %}
+                        {% static 'img/no_image.png' %}
+                    {% endif %}">
+                <h3 style="margin-top: 30px; height: 70px;">{{ i.name }}</h3>
+                <p style="margin-bottom: 20px;">{{ i.price }}руб.</p>
+                <a href="{{ i.get_absolute_url }}"><p class="black-button">подробнее</p></a>
+			</div>
+		{% endfor %}
+	</div>
+	<hr>
+	<h1 style="text-align: center; text-transform: uppercase;">Самое дешевое!</h1>
+	<div style="text-align: center;">
+		{% for i in cheap_products %}
+			<div class="product-cart">
+				<img class="hmp-image" src="
+					{% if i.image %}
+                        {{ i.image.url }}
+                    {% else %}
+                        {% static 'img/no_image.png' %}
+                    {% endif %}">
+                <h3 style="margin-top: 30px; height: 70px;">{{ i.name }}</h3>
+                <p style="margin-bottom: 20px;">{{ i.price }}руб.</p>
+                <a href="{{ i.get_absolute_url }}"><p class="black-button">подробнее</p></a>
+			</div>
+		{% endfor %}
+	</div>
+</div>
+<footer class="footer">
+	<h4 style="color: white; padding-top: 100px; text-transform: uppercase; font-size: 40px; text-align: center; font-weight: 0;">by<br>Danil Petrov<br>and<br>Django 3.0.</h4>
+</footer>
+{% endblock %}
